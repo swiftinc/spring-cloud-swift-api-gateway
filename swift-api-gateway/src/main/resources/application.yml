@@ -1,0 +1,102 @@
+swift:
+  channel-certificates:
+    bnkabebb-pre-validation:
+      location: classpath:keystores/bnkabebb.jks
+      alias: pre-validation
+      password: Abcd1234
+      key-password: Abcd1234
+    bnkbbebb-pre-validation:
+      location: classpath:keystores/bnkabebb.jks
+      alias: pre-validation
+      password: Abcd1234
+      key-password: Abcd1234
+    bnkbbebb-gpi-tracker:
+      location: classpath:keystores/bnkbbebb.jks
+      alias: gpi-tracker
+      password: Abcd1234
+      key-password: Abcd1234
+
+spring:
+  cloud:
+    gateway:
+      # For a production deployment, configure the gateway with SwiftNet Root CA certificate:
+      #   1. Download SwiftNet Root CA https://www2.swift.com/knowledgecentre/kb_articles/5024117
+      #   2. Rename the downloaded file to swift_ca.pem and copy the file to the resources folder so it can be found in the classpath.
+      #      It can also be placed in a different location.
+      #   3. Uncomment below lines to make a request in production
+      # httpclient:
+      #   ssl:
+      #     trustedX509Certificates:
+      #     - classpath:swift_ca.pem
+      routes:
+        - id: bnkabebb-pre-validation
+          uri: https://sandbox.swift.com
+          predicates:
+            - Path=/preval
+            - Header=X-Consumer-Custom-ID, bnkabebb
+          filters:
+            - RemoveRequestHeader=X-Consumer-Custom-ID
+            - AddRequestHeader=x-bic, swhqbebb
+            - RewritePath=/preval, /swift-preval/v2/accounts/verification
+            - TokenRelay=bnkabebb-pre-validation
+        
+        - id: bnkbbebb-pre-validation
+          uri: https://sandbox.swift.com
+          predicates:
+            - Path=/preval
+            - Header=X-Consumer-Custom-ID, bnkbbebb
+          filters:
+            - RemoveRequestHeader=X-Consumer-Custom-ID
+            - AddRequestHeader=x-bic, swhqbebb
+            - RewritePath=/preval, /swift-preval/v2/accounts/verification
+            - TokenRelay=bnkbbebb-pre-validation
+        
+        - id: bnkbbebb-gpi-tracker
+          uri: https://sandbox.swift.com
+          predicates:
+            - Path=/gpi-tracker/**
+            - Header=X-Consumer-Custom-ID, bnkbbebb
+          filters:
+            - RemoveRequestHeader=X-Consumer-Custom-ID
+            - RewritePath=/gpi-tracker/?(?<segment>.*), /swift-apitracker/v6/payments/$\{segment}/transactions
+            - TokenRelay=bnkbbebb-gpi-tracker
+
+  security:
+    oauth2:
+      client:
+        registration:
+          bnkabebb-pre-validation:
+            client-id: ${CONSUMER_KEY_BNKABEBB}
+            client-secret: ${CONSUMER_SECRET_BNKABEBB}
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
+            scope: swift.preval!p
+
+          bnkbbebb-pre-validation:
+            client-id: ${CONSUMER_KEY_BNKBBEBB}
+            client-secret: ${CONSUMER_SECRET_BNKBBEBB}
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
+            scope: swift.preval!p
+
+          bnkbbebb-gpi-tracker:
+            client-id: ${CONSUMER_KEY_BNKBBEBB}
+            client-secret: ${CONSUMER_SECRET_BNKBBEBB}
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
+            scope: swift.apitracker
+
+        provider:
+          bnkabebb-pre-validation:
+            token-uri: "https://sandbox.swift.com/oauth2/v1/token"
+          bnkbbebb-pre-validation:
+            token-uri: "https://sandbox.swift.com/oauth2/v1/token"
+          bnkbbebb-gpi-tracker:
+            token-uri: "https://sandbox.swift.com/oauth2/v1/token"
+
+# logging:
+#   level:
+#     reactor:
+#       netty:
+#         http:
+#           client: DEBUG

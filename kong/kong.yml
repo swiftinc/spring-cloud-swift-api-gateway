@@ -1,0 +1,54 @@
+_format_version: "3.0"
+_transform: true
+
+upstreams:
+  - name: swift-api-gateway
+    targets:
+      - target: swift-api-gateway:8080
+
+plugins:
+  - name: key-auth
+    service: swift-api-gateway
+    config:
+      key_names:
+        - apikey
+      key_in_query: false
+
+consumers:
+  - username: Bank A
+    custom_id: bnkabebb
+    keyauth_credentials:
+      - key: Abcd1234
+  - username: Bank B
+    custom_id: bnkbbebb
+    keyauth_credentials:
+      - key: efgh5678
+
+services:
+  - name: swift-api-gateway
+    host: swift-api-gateway
+    protocol: http
+    port: 8080
+    connect_timeout: 15000
+    read_timeout: 15000
+    write_timeout: 15000
+    retries: 3
+    routes:
+        - name: swift-preval
+          methods:
+            - POST
+          paths:
+            - /preval
+          protocols:
+            - http
+          strip_path: false
+          preserve_host: false
+        - name: swift-gpi-tracker
+          methods:
+            - GET
+          paths:
+            - /gpi-tracker
+          protocols:
+            - http
+          strip_path: false
+          preserve_host: false

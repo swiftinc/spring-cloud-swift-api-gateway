@@ -1,0 +1,47 @@
+services:
+  kong-api-gateway:
+    image: kong
+    environment:
+      KONG_DATABASE: "off"
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_LOG_LEVEL: error
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl, 0.0.0.0:9080 http2, 0.0.0.0:9081 http2 ssl
+      KONG_ADMIN_GUI_LISTEN: 0.0.0.0:8002
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - 8000:8000
+    volumes:
+       - ./kong/kong.yml:/usr/local/kong/declarative/kong.yml
+
+  swift-api-gateway:
+      image: localhost/swift-api-gateway
+      build:
+        context: ./swift-api-gateway
+      healthcheck:
+        test: "curl -s http://127.0.0.1:8080/actuator/health || exit 1"
+        interval: 10s
+        timeout: 5s
+        retries: 3
+      ports:
+        - 8080:8080
+      env_file: ".env.local"
+
+  test:
+    image: postman/newman
+    volumes:
+      - ./postman/Spring Boot Swift API Gateway.postman_collection.json:/etc/newman/collection.json
+    command: run /etc/newman/collection.json --env-var "swift-api-gateway-host=swift-api-gateway" --env-var "kong-host=kong-api-gateway"
+    depends_on:
+      kong-api-gateway:
+        condition: service_healthy
+      swift-api-gateway:
+        condition: service_healthy

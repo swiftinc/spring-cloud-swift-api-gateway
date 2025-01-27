@@ -1,0 +1,57 @@
+{
+    "name": "Spring Boot",
+    "image": "mcr.microsoft.com/devcontainers/java:21",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "none",
+            "installMaven": "false",
+            "installGradle": "false"
+        },
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.12.1"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "java.compile.nullAnalysis.mode": "automatic",
+                "java.configuration.updateBuildConfiguration": "automatic",
+                "[java]": {
+                    "editor.defaultFormatter": "redhat.java"
+                },
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.autopep8"
+                },
+                "editor.formatOnSave": true,
+                "java.saveActions.organizeImports": true,
+                "java.completion.importOrder": [
+                    "#",
+                    "java",
+                    "javax",
+                    "org",
+                    "com",
+                    ""
+                ]
+            },
+            "extensions": [
+                "streetsidesoftware.code-spell-checker",
+                "vscjava.vscode-java-pack",
+                "redhat.vscode-xml",
+                "ms-python.python",
+                "vmware.vscode-spring-boot",
+                "tehpeng.diagramspreviewer",
+                "ms-python.autopep8"
+            ]
+        }
+    },
+    "forwardPorts": [
+        8080
+    ],
+    "runArgs": [
+        "--env-file",
+        ".env.local"
+    ],
+    "onCreateCommand": "sudo apt-get update && sudo apt-get install -y graphviz && pip install diagrams",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace"
+}

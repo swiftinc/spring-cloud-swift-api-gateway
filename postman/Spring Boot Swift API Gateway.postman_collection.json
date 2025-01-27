@@ -1,0 +1,501 @@
+{
+	"info": {
+		"_postman_id": "9826e150-b0d7-47d9-bf17-446d49e050ee",
+		"name": "Spring Boot Swift API Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25730908",
+		"_collection_link": "https://swift-imendili.postman.co/workspace/Swift-API~dc5734eb-fea0-4097-bcf8-27459a3e0bea/collection/25730908-9826e150-b0d7-47d9-bf17-446d49e050ee?action=share&source=collection_link&creator=25730908"
+	},
+	"item": [
+		{
+			"name": "Kong",
+			"item": [
+				{
+					"name": "Bank A",
+					"item": [
+						{
+							"name": "Pre-Validation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"correlation_identifier\": \"112211221122\",\n    \"context\": \"BENR\",\n    \"uetr\": \"97ed4827-7b6f-4491-a06f-b548d5a7512d\",\n    \"creditor_account\": \"7892368367\",\n    \"creditor_name\": \"DEF Electronics\",\n    \"creditor_agent\": {\n        \"bicfi\": \"AAAAUS2L\"\n    },\n    \"creditor_agent_branch_identification\": \"NY8877888\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{kong-host}}:8000/preval",
+									"protocol": "http",
+									"host": [
+										"{{kong-host}}"
+									],
+									"port": "8000",
+									"path": [
+										"preval"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "Abcd1234",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "apiKey",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Bank B",
+					"item": [
+						{
+							"name": "Pre-Validation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"correlation_identifier\": \"112211221122\",\n    \"context\": \"BENR\",\n    \"uetr\": \"97ed4827-7b6f-4491-a06f-b548d5a7512d\",\n    \"creditor_account\": \"7892368367\",\n    \"creditor_name\": \"DEF Electronics\",\n    \"creditor_agent\": {\n        \"bicfi\": \"AAAAUS2L\"\n    },\n    \"creditor_agent_branch_identification\": \"NY8877888\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{kong-host}}:8000/preval",
+									"protocol": "http",
+									"host": [
+										"{{kong-host}}"
+									],
+									"port": "8000",
+									"path": [
+										"preval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GPI tracker",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{kong-host}}:8000/gpi-tracker/97ed4827-7b6f-4491-a06f-b548d5a7512d",
+									"protocol": "http",
+									"host": [
+										"{{kong-host}}"
+									],
+									"port": "8000",
+									"path": [
+										"gpi-tracker",
+										"97ed4827-7b6f-4491-a06f-b548d5a7512d"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "efgh5678",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "apiKey",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Direct",
+			"item": [
+				{
+					"name": "Bank A",
+					"item": [
+						{
+							"name": "Pre-Validation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Consumer-Custom-ID",
+										"value": "bnkabebb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"correlation_identifier\": \"112211221122\",\n    \"context\": \"BENR\",\n    \"uetr\": \"97ed4827-7b6f-4491-a06f-b548d5a7512d\",\n    \"creditor_account\": \"7892368367\",\n    \"creditor_name\": \"DEF Electronics\",\n    \"creditor_agent\": {\n        \"bicfi\": \"AAAAUS2L\"\n    },\n    \"creditor_agent_branch_identification\": \"NY8877888\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{swift-api-gateway-host}}:8080/preval",
+									"protocol": "http",
+									"host": [
+										"{{swift-api-gateway-host}}"
+									],
+									"port": "8080",
+									"path": [
+										"preval"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "Abcd1234",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "apiKey",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Bank B",
+					"item": [
+						{
+							"name": "Pre-Validation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Consumer-Custom-ID",
+										"value": "bnkbbebb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"correlation_identifier\": \"112211221122\",\n    \"context\": \"BENR\",\n    \"uetr\": \"97ed4827-7b6f-4491-a06f-b548d5a7512d\",\n    \"creditor_account\": \"7892368367\",\n    \"creditor_name\": \"DEF Electronics\",\n    \"creditor_agent\": {\n        \"bicfi\": \"AAAAUS2L\"\n    },\n    \"creditor_agent_branch_identification\": \"NY8877888\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{swift-api-gateway-host}}:8080/preval",
+									"protocol": "http",
+									"host": [
+										"{{swift-api-gateway-host}}"
+									],
+									"port": "8080",
+									"path": [
+										"preval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GPI tracker",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Consumer-Custom-ID",
+										"value": "bnkbbebb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{swift-api-gateway-host}}:8080/gpi-tracker/97ed4827-7b6f-4491-a06f-b548d5a7512d",
+									"protocol": "http",
+									"host": [
+										"{{swift-api-gateway-host}}"
+									],
+									"port": "8080",
+									"path": [
+										"gpi-tracker",
+										"97ed4827-7b6f-4491-a06f-b548d5a7512d"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "efgh5678",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "apiKey",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "kong-host",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "swift-api-gateway-host",
+			"value": "127.0.0.1",
+			"type": "string"
+		}
+	]
+}

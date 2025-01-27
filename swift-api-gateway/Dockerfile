@@ -1,8 +1,8 @@
 FROM maven:3-eclipse-temurin-21-alpine AS build
 WORKDIR /workspace
-COPY --chown=1001:0 ./pom.xml ./
+COPY ./pom.xml ./
 RUN mvn dependency:go-offline
-COPY --chown=1001:0 . .
+COPY . .
 RUN mvn package
 
 FROM eclipse-temurin:21-jre-alpine

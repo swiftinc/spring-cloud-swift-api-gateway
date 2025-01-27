@@ -14,9 +14,7 @@ Three main components are used in the application:
 
 2. **Kong API Gateway**: The Kong API Gateway is the entry point for all the APIs. It is responsible for routing the requests to the appropriate services. The API Gateway handles the authentication and authorization of the requests and sets the `X-Customer-Custom-ID` header to the appropriate value. Once the request is authenticated and authorized, Kong API Gateway forwards the request to the **Spring Cloud Swift API gateway**.
 
-3. **Spring Cloud Swift API Gateway**: The Spring Cloud Swift API Gateway is responsible for routing the requests to the appropriate Swift API.
-<br>
-The application identifies the user using the `X-Customer-Custom-ID` header set by the Kong API Gateway. This identifications is done using a custom `Principal` implementation but [any other authentication mechanism from Spring Security can be used.](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
+3. **Spring Cloud Swift API Gateway**: The Spring Cloud Swift API Gateway is responsible for routing the requests to the appropriate Swift API. The application identifies the user using the `X-Customer-Custom-ID` header set by the Kong API Gateway. This identifications is done using a custom `Principal` implementation but [any other authentication mechanism from Spring Security can be used.](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
 
 
 ## Running the application

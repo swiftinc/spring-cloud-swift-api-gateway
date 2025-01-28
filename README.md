@@ -91,23 +91,21 @@ spring:
             - id: bnkbbebb-pre-validation
             uri: https://sandbox.swift.com
             predicates:
-                - Path=/preval
+                - Path=/swift-preval/**
                 - Header=X-Consumer-Custom-ID,bnkbbebb
             filters:
                 - RemoveRequestHeader=X-Consumer-Custom-ID
                 - AddRequestHeader=x-bic,swhqbebb
-                - RewritePath=/preval,/swift-preval/v2/accounts/verification
                 - TokenRelay=bnkbbebb-pre-validation
 ```
 
 In this case, two predicates are used to route the request to the Pre-Validation API:
-1. `Path=/preval`: The request must have the path `/preval`.
+1. `Path=/swift-preval/**`: The request must start with the path `/swift-preval/`.
 2. `Header=X-Consumer-Custom-ID,bnkbbebb`: The request must have the header `X-Consumer-Custom-ID` with the value `bnkbbebb`.
 
 The request is processed by four filters:
 1. `RemoveRequestHeader=X-Consumer-Custom-ID`: The header `X-Consumer-Custom-ID` is removed from the request.
 2. `AddRequestHeader=x-bic,swhqbebb`: The header `x-bic` is added to the request with the value `swhqbebb`.
-3. `RewritePath=/preval,/swift-preval/v2/accounts/verification`: The path `/preval` is rewritten to `/swift-preval/v2/accounts/verification`.
 4. `TokenRelay=bnkbbebb-pre-validation`: The OAuth2 token for the client `bnkbbebb-pre-validation` is added to the request.
 
 

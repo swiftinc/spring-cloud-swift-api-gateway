@@ -38,7 +38,7 @@ services:
           methods:
             - POST
           paths:
-            - /preval
+            - /swift-preval
           protocols:
             - http
           strip_path: false

@@ -32,23 +32,21 @@ spring:
         - id: bnkabebb-pre-validation
           uri: https://sandbox.swift.com
           predicates:
-            - Path=/preval
+            - Path=/swift-preval/**
             - Header=X-Consumer-Custom-ID, bnkabebb
           filters:
             - RemoveRequestHeader=X-Consumer-Custom-ID
             - AddRequestHeader=x-bic, swhqbebb
-            - RewritePath=/preval, /swift-preval/v2/accounts/verification
             - TokenRelay=bnkabebb-pre-validation
         
         - id: bnkbbebb-pre-validation
           uri: https://sandbox.swift.com
           predicates:
-            - Path=/preval
+            - Path=/swift-preval/**
             - Header=X-Consumer-Custom-ID, bnkbbebb
           filters:
             - RemoveRequestHeader=X-Consumer-Custom-ID
             - AddRequestHeader=x-bic, swhqbebb
-            - RewritePath=/preval, /swift-preval/v2/accounts/verification
             - TokenRelay=bnkbbebb-pre-validation
         
         - id: bnkbbebb-gpi-tracker

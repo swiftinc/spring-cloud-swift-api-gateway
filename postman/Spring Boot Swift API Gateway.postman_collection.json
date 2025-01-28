@@ -4,7 +4,7 @@
 		"name": "Spring Boot Swift API Gateway",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25730908",
-		"_collection_link": "https://swift-imendili.postman.co/workspace/Swift-API~dc5734eb-fea0-4097-bcf8-27459a3e0bea/collection/25730908-9826e150-b0d7-47d9-bf17-446d49e050ee?action=share&source=collection_link&creator=25730908"
+		"_collection_link": "https://swift-imendili.postman.co/workspace/Swift-API~dc5734eb-fea0-4097-bcf8-27459a3e0bea/collection/25730908-9826e150-b0d7-47d9-bf17-446d49e050ee?source=collection_link"
 	},
 	"item": [
 		{
@@ -42,14 +42,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{kong-host}}:8000/preval",
+									"raw": "http://{{kong-host}}:8000/swift-preval/v2/accounts/verification",
 									"protocol": "http",
 									"host": [
 										"{{kong-host}}"
 									],
 									"port": "8000",
 									"path": [
-										"preval"
+										"swift-preval",
+										"v2",
+										"accounts",
+										"verification"
 									]
 								}
 							},
@@ -126,14 +129,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{kong-host}}:8000/preval",
+									"raw": "http://{{kong-host}}:8000/swift-preval/v2/accounts/verification",
 									"protocol": "http",
 									"host": [
 										"{{kong-host}}"
 									],
 									"port": "8000",
 									"path": [
-										"preval"
+										"swift-preval",
+										"v2",
+										"accounts",
+										"verification"
 									]
 								}
 							},
@@ -267,14 +273,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{swift-api-gateway-host}}:8080/preval",
+									"raw": "http://{{swift-api-gateway-host}}:8080/swift-preval/v2/accounts/verification",
 									"protocol": "http",
 									"host": [
 										"{{swift-api-gateway-host}}"
 									],
 									"port": "8080",
 									"path": [
-										"preval"
+										"swift-preval",
+										"v2",
+										"accounts",
+										"verification"
 									]
 								}
 							},
@@ -357,14 +366,17 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{swift-api-gateway-host}}:8080/preval",
+									"raw": "http://{{swift-api-gateway-host}}:8080/swift-preval/v2/accounts/verification",
 									"protocol": "http",
 									"host": [
 										"{{swift-api-gateway-host}}"
 									],
 									"port": "8080",
 									"path": [
-										"preval"
+										"swift-preval",
+										"v2",
+										"accounts",
+										"verification"
 									]
 								}
 							},

@@ -85,18 +85,18 @@ The following example shows how to configure a route for the Pre-Validation API.
 
 ``` yaml
 spring:
-    cloud:
-        gateway:
-        routes:
-            - id: bnkbbebb-pre-validation
-            uri: https://sandbox.swift.com
-            predicates:
-                - Path=/swift-preval/**
-                - Header=X-Consumer-Custom-ID,bnkbbebb
-            filters:
-                - RemoveRequestHeader=X-Consumer-Custom-ID
-                - AddRequestHeader=x-bic,swhqbebb
-                - TokenRelay=bnkbbebb-pre-validation
+  cloud:
+    gateway:
+      routes:
+        - id: bnkbbebb-pre-validation
+          uri: https://sandbox.swift.com
+          predicates:
+            - Path=/swift-preval/**
+            - Header=X-Consumer-Custom-ID,bnkbbebb
+          filters:
+            - RemoveRequestHeader=X-Consumer-Custom-ID
+            - AddRequestHeader=x-bic,swhqbebb
+            - TokenRelay=bnkbbebb-pre-validation
 ```
 
 In this case, two predicates are used to route the request to the Pre-Validation API:

@@ -166,19 +166,19 @@ The following example shows how to configure a OAuth2 client for the Pre-Validat
 @Configuration
 public class OAuth2ClientConfiguration {
 
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository() {
-        ClientRegistration registration = ClientRegistration
-                .withRegistrationId("bnkbbebb-pre-validation")
-                .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
-                .clientId("pzGGIkKTn6ftiMh1vjXRYwjV0PMdyqQY")
-                .clientSecret("6Mn5AlnHzTRTSqZK")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .scope("swift.preval!p")
-                .tokenUri("https://sandbox.swift.com/oauth2/v1/token")
-                .build();
-        return new InMemoryClientRegistrationRepository(List.of(registration));
-    }
+  @Bean
+  public ClientRegistrationRepository clientRegistrationRepository() {
+    ClientRegistration registration = ClientRegistration
+      .withRegistrationId("bnkbbebb-pre-validation")
+      .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
+      .clientId("pzGGIkKTn6ftiMh1vjXRYwjV0PMdyqQY")
+      .clientSecret("6Mn5AlnHzTRTSqZK")
+      .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+      .scope("swift.preval!p")
+      .tokenUri("https://sandbox.swift.com/oauth2/v1/token")
+      .build();
+    return new InMemoryClientRegistrationRepository(List.of(registration));
+  }
 }
 ```
 
@@ -188,27 +188,27 @@ Routes can be also configured using Java configuration classes.
 @Configuration
 public class RoutesConfiguration {
 
-    @Bean
-    public RouteLocator fluentApiRoutes(RouteLocatorBuilder builder) {
-        return builder.routes()
-                // Pre-Validation
-                .route("bnkbbebb-pre-validation",
-                        r -> r.path("/preval").and().header("X-Consumer-Custom-ID", "bnkbbebb")
-                                .filters(f -> f.removeRequestHeader("X-Consumer-Custom-ID")
-                                        .addRequestHeader("x-bic", "swhqbebb")
-                                        .rewritePath("/preval", "/swift-preval/v2/accounts/verification")
-                                        .tokenRelay("bnkbbebb-pre-validation"))
-                                .uri("https://sandbox.swift.com"))
+  @Bean
+  public RouteLocator fluentApiRoutes(RouteLocatorBuilder builder) {
+    return builder.routes()
+      // Pre-Validation
+      .route("bnkbbebb-pre-validation",
+        r -> r.path("/swift-preval/**").and().header("X-Consumer-Custom-ID", "bnkbbebb")
+          .filters(f -> f.removeRequestHeader("X-Consumer-Custom-ID")
+            .addRequestHeader("x-bic", "swhqbebb")
+            .tokenRelay("bnkbbebb-pre-validation"))
+          .uri("https://sandbox.swift.com"))
 
-                // GPI tracker
-                .route("bnkbbebb-gpi-tracker", r -> r.path("/gpi-tracker/**").and()
-                        .header("X-Consumer-Custom-ID", "bnkbbebb")
-                        .filters(f -> f.removeRequestHeader("X-Consumer-Custom-ID")
-                                .rewritePath("/gpi-tracker/?(?<segment>.*)",
-                                        "/swift-apitracker/v6/payments/$\\{segment}/transactions")
-                                .tokenRelay("bnkbbebb-gpi-tracker"))
-                        .uri("https://sandbox.swift.com"))
-                .build();
-    }
+      // GPI tracker
+      .route("bnkbbebb-gpi-tracker",
+        r -> r.path("/gpi-tracker/**").and().header("X-Consumer-Custom-ID", "bnkbbebb")
+          .filters(f -> f.removeRequestHeader("X-Consumer-Custom-ID")
+            .rewritePath("/gpi-tracker/?(?<segment>.*)",
+              "/swift-apitracker/v6/payments/$\\{segment}/transactions")
+            .tokenRelay("bnkbbebb-gpi-tracker"))
+          .uri("https://sandbox.swift.com"))
+      .build();
+  }
 }
+```
 ```

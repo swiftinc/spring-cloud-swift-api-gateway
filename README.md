@@ -24,7 +24,7 @@ The project is ready to use with the Swift Sandbox environment. The only thing y
 
 1. Create an account on the [Swift Developer Portal](https://developer.swift.com)
 
-2. Create an application on the [Swift Developer Portal](https://developer.swift.com/apps) and select **Pre-Validation API** and **GPI Tracker API** options.
+2. Create an application on the [Swift Developer Portal](https://developer.swift.com/myapps) and select **Pre-Validation API** and **GPI Tracker API** options.
 
 3. Get the `Consumer Key` and `Consumer Secret` from the application you created.
 

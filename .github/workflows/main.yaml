@@ -13,8 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        java: ["21"]
-        os: ["ubuntu-latest", "windows-latest"]
+        java: ["17", "21"]
+        os: ["ubuntu-latest"]
     env:
       CONSUMER_KEY_BNKABEBB: ${{ vars.CONSUMER_KEY }}
       CONSUMER_SECRET_BNKABEBB: ${{ secrets.CONSUMER_SECRET }}

@@ -147,10 +147,9 @@ spring:
           bnkbbebb-pre-validation:
             client-id: pzGGIkKTn6ftiMh1vjXRYwjV0PMdyqQY
             client-secret: 6Mn5AlnHzTRTSqZK
-            client-authentication-method: basic
-            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
             scope: swift.preval!p
-            provider: swift
         provider:
           swift:
             token-uri: https://sandbox.swift.com/oauth2/v1/token

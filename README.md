@@ -10,11 +10,11 @@ This project is a simple example of how to use [Spring Cloud Gateway](https://do
 
 Three main components are used in the application:
 
-1. **Users**: The user is the entity that uses the APIs. The user is identified by an API key and once the it is authenticated, the API Gateway sets the `X-Customer-Custom-ID` header to the appropriate value. This header contains the `BIC` of the user.
+1. **Clients**: The client is the entity that uses the APIs. The client is identified by an API key and once the it is authenticated, the API Gateway sets the `X-Customer-Custom-ID` header to the appropriate value. This header contains the `BIC` of the client.
 
 2. **Kong API Gateway**: The Kong API Gateway is the entry point for all the APIs. It is responsible for routing the requests to the appropriate services. The API Gateway handles the authentication and authorization of the requests and sets the `X-Customer-Custom-ID` header to the appropriate value. Once the request is authenticated and authorized, Kong API Gateway forwards the request to the **Spring Cloud Swift API gateway**.
 
-3. **Spring Cloud Swift API Gateway**: The Spring Cloud Swift API Gateway is responsible for routing the requests to the appropriate Swift API. The application identifies the user using the `X-Customer-Custom-ID` header set by the Kong API Gateway. This identifications is done using a custom `Principal` implementation but [any other authentication mechanism from Spring Security can be used.](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
+3. **Spring Cloud Swift API Gateway**: The Spring Cloud Swift API Gateway is responsible for routing the requests to the appropriate Swift API. The application identifies the client using the `X-Customer-Custom-ID` header set by the Kong API Gateway. This identifications is done using a custom `Principal` implementation but [any other authentication mechanism from Spring Security can be used.](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
 
 
 ## Running the application

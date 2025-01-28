@@ -14,7 +14,7 @@ with Diagram("Spring Cloud Swift API Gateway", show=False, outformat="png", grap
         spring_cloud = Server("Spring Cloud Gateway")
         kong >> Edge(label="2") >> spring_cloud >> Edge(
             label="3") >> swift_api_gateway
-    with Cluster("Users", graph_attr={"bgcolor": "#EBF3E7"}):
+    with Cluster("Clients", graph_attr={"bgcolor": "#EBF3E7"}):
         bnkabebb = Client("BNKABEBB")
         bnkbbebb = Client("BNKBBEBB")
         bnkabebb >> Edge(label="1") >> kong

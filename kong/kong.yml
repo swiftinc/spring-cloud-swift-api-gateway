@@ -43,11 +43,13 @@ services:
             - http
           strip_path: false
           preserve_host: false
-        - name: swift-gpi-tracker
+        - name: swift-gpi
           methods:
             - GET
+            - PUT
           paths:
             - /gpi-tracker
+            - /gpi-tracker-gsrp
           protocols:
             - http
           strip_path: false

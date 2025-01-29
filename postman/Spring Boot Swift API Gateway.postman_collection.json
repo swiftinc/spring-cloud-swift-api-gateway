@@ -190,6 +190,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "GPI Stop and Recall",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"from\": \"GPIBBICXXXX\",\n  \"service_level\": \"G002\",\n  \"case_identification\": \"case123\",\n  \"original_message_name_identification\": \"pacs.008\",\n  \"original_instruction_identification\": \"ABC123\",\n  \"cancellation_reason_information\": \"DUPL\",\n  \"indemnity_agreement\": \"INDM\",\n  \"creator\": \"GPIABICXXXX\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{kong-host}}:8000/gpi-tracker-gsrp/97ed4827-7b6f-4491-a06f-b548d5a7512d",
+									"protocol": "http",
+									"host": [
+										"{{kong-host}}"
+									],
+									"port": "8000",
+									"path": [
+										"gpi-tracker-gsrp",
+										"97ed4827-7b6f-4491-a06f-b548d5a7512d"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"auth": {
@@ -428,6 +471,55 @@
 									"port": "8080",
 									"path": [
 										"gpi-tracker",
+										"97ed4827-7b6f-4491-a06f-b548d5a7512d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GPI Stop and Recall",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Consumer-Custom-ID",
+										"value": "bnkbbebb",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"from\": \"GPIBBICXXXX\",\n  \"service_level\": \"G002\",\n  \"case_identification\": \"case123\",\n  \"original_message_name_identification\": \"pacs.008\",\n  \"original_instruction_identification\": \"ABC123\",\n  \"cancellation_reason_information\": \"DUPL\",\n  \"indemnity_agreement\": \"INDM\",\n  \"creator\": \"GPIABICXXXX\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{swift-api-gateway-host}}:8080/gpi-tracker-gsrp/97ed4827-7b6f-4491-a06f-b548d5a7512d",
+									"protocol": "http",
+									"host": [
+										"{{swift-api-gateway-host}}"
+									],
+									"port": "8080",
+									"path": [
+										"gpi-tracker-gsrp",
 										"97ed4827-7b6f-4491-a06f-b548d5a7512d"
 									]
 								}

@@ -24,10 +24,10 @@ spring:
       #   2. Rename the downloaded file to swift_ca.pem and copy the file to the resources folder so it can be found in the classpath.
       #      It can also be placed in a different location.
       #   3. Uncomment below lines to make a request in production
-      # httpclient:
-      #   ssl:
-      #     trustedX509Certificates:
-      #     - classpath:swift_ca.pem
+      #httpclient:
+      #  ssl:
+      #    trustedX509Certificates:
+      #      - classpath:swift_ca.pem
       routes:
         - id: bnkabebb-pre-validation
           uri: https://sandbox.swift.com
@@ -92,9 +92,9 @@ spring:
           bnkbbebb-gpi-tracker:
             token-uri: "https://sandbox.swift.com/oauth2/v1/token"
 
-# logging:
-#   level:
-#     reactor:
-#       netty:
-#         http:
-#           client: DEBUG
+#logging:
+#  level:
+#    reactor:
+#      netty:
+#        http:
+#          client: DEBUG

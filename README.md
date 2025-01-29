@@ -1,4 +1,4 @@
-[![Main](https://github.com/ikermendi/cecabank-demo/actions/workflows/main.yaml/badge.svg)](https://github.com/ikermendi/cecabank-demo/actions/workflows/main.yaml)
+[![Main](https://github.com/swiftinc/spring-cloud-swift-api-gateway/actions/workflows/main.yaml/badge.svg)](https://github.com/swiftinc/spring-cloud-swift-api-gateway/actions/workflows/main.yaml)
 
 # Swift API Gateway using Spring Cloud Gateway
 

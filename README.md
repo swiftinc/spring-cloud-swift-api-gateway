@@ -55,6 +55,7 @@ A postman collection is provided for testing. The postman collection contains th
 * Bank A - Pre-Validation API
 * Bank B - Pre-Validation API
 * Bank B - GPI Tracker API
+* Bank B - Stop and Recall API
 
 The postman collection is located in the `postman` directory. You can import the collection into Postman and run the requests.
 

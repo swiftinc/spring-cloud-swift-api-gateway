@@ -35,7 +35,7 @@ The project is ready to use with the Swift Sandbox environment. The only thing y
 The application can be run using Docker. The following command shows how to run the application.
 
 ``` bash
-docker-compose up
+docker compose up
 ```
 
 ### Launching Spring Boot standalone for testing

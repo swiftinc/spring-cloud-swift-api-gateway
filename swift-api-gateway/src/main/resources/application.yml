@@ -10,7 +10,7 @@ swift:
       alias: pre-validation
       password: Abcd1234
       key-password: Abcd1234
-    bnkbbebb-gpi-tracker:
+    bnkbbebb-gpi:
       location: classpath:keystores/bnkbbebb.jks
       alias: gpi-tracker
       password: Abcd1234
@@ -57,7 +57,18 @@ spring:
           filters:
             - RemoveRequestHeader=X-Consumer-Custom-ID
             - RewritePath=/gpi-tracker/?(?<segment>.*), /swift-apitracker/v6/payments/$\{segment}/transactions
-            - TokenRelay=bnkbbebb-gpi-tracker
+            - TokenRelay=bnkbbebb-gpi
+
+        - id: bnkbbebb-gpi-stop-and-recall
+          uri: https://sandbox.swift.com
+          predicates:
+            - Path=/gpi-tracker-gsrp/**
+            - Header=X-Consumer-Custom-ID, bnkbbebb
+          filters:
+            - RemoveRequestHeader=X-Consumer-Custom-ID
+            - RewritePath=/gpi-tracker-gsrp/?(?<segment>.*), /swift-apitracker-gsrp/v6/payments/$\{segment}/cancellation
+            - TokenRelay=bnkbbebb-gpi
+            - SwiftSignature=bnkbbebb-gpi
 
   security:
     oauth2:
@@ -77,19 +88,19 @@ spring:
             authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
             scope: swift.preval!p
 
-          bnkbbebb-gpi-tracker:
+          bnkbbebb-gpi:
             client-id: ${CONSUMER_KEY_BNKBBEBB}
             client-secret: ${CONSUMER_SECRET_BNKBBEBB}
             client-authentication-method: client_secret_basic
             authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-            scope: swift.apitracker
+            scope: swift.apitracker/Update
 
         provider:
           bnkabebb-pre-validation:
             token-uri: "https://sandbox.swift.com/oauth2/v1/token"
           bnkbbebb-pre-validation:
             token-uri: "https://sandbox.swift.com/oauth2/v1/token"
-          bnkbbebb-gpi-tracker:
+          bnkbbebb-gpi:
             token-uri: "https://sandbox.swift.com/oauth2/v1/token"
 
 #logging:

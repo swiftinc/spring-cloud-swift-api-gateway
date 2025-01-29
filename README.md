@@ -132,7 +132,7 @@ swift:
       alias: pre-validation
       password: Abcd1234
       key-password: Abcd1234
-    bnkbbebb-gpi-tracker:
+    bnkbbebb-gpi:
       location: classpath:keystores/bnkbbebb.jks
       alias: gpi-tracker
       password: Abcd1234
@@ -211,7 +211,7 @@ public class RoutesConfiguration {
           .filters(f -> f.removeRequestHeader("X-Consumer-Custom-ID")
             .rewritePath("/gpi-tracker/?(?<segment>.*)",
               "/swift-apitracker/v6/payments/$\\{segment}/transactions")
-            .tokenRelay("bnkbbebb-gpi-tracker"))
+            .tokenRelay("bnkbbebb-gpi"))
           .uri("https://sandbox.swift.com"))
       .build();
   }

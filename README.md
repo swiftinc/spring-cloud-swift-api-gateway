@@ -108,7 +108,7 @@ The request is processed by four filters:
 2. `AddRequestHeader=x-bic,swhqbebb`: The header `x-bic` is added to the request with the value `swhqbebb`.
 4. `TokenRelay=bnkbbebb-pre-validation`: The OAuth2 token for the client `bnkbbebb-pre-validation` is added to the request.
 
-### Swift signature custom gateway filter
+#### Swift signature custom gateway filter
 
 The [SwiftSignatureGatewayFilterFactory](swift-api-gateway/src/main/java/com/swift/apidev/swiftgateway/filter/SwiftSignatureGatewayFilterFactory.java) gateway filter is responsible for signing the request before it is sent to the Swift API. The filter is configured using the `SwiftSignature=<channel-certificate-name>` property.
 
